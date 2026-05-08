@@ -42,8 +42,8 @@ function BulleMessage({ msg }: { msg: Message }) {
         }`}>
           {msg.content}
         </div>
-        <span className="text-xs text-gray-400 px-1">
-          {msg.timestamp.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+        <span suppressHydrationWarning className="text-xs text-gray-400 px-1">
+         {`${msg.timestamp.getHours().toString().padStart(2,'0')}:${msg.timestamp.getMinutes().toString().padStart(2,'0')}`}
         </span>
       </div>
     </div>
