@@ -10,6 +10,7 @@ const NAV = [
   { href: '/qualite',    label: 'Qualité',          icon: '✅' },
   { href: '/veille',     label: 'Veille',           icon: '📰' },
   { href: '/formateurs', label: 'Formateurs',       icon: '👩‍🏫' },
+  { href: '/recrutement', label: 'Recrutement',     icon: '📣' },
   { href: '/chatbot',    label: 'Chatbot',           icon: '🤖' },
 ]
 
