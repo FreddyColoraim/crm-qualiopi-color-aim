@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { useState } from 'react'
 import Link from 'next/link'
 import { NouvelleFormationButton } from '@/components/NouvelleFormationButton'
 import { BookOpen, Clock, Users, Euro, MapPin, ChevronRight } from 'lucide-react'
