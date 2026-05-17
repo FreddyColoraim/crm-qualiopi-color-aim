@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { EmailButtonWrapper } from '@/components/EmailButtonWrapper'
+import { EmailButtonWrapper } from '@/components/EmailButtonWrapper'
 import {
   ArrowLeft, Mail, Phone, Building2, Briefcase,
   CreditCard, FileText, CalendarDays, CheckCircle2,
