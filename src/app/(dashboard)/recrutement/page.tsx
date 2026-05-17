@@ -457,7 +457,7 @@ function SocialTab({ onToast }: { onToast: (m: string) => void }) {
   const reseaux = [
     { id: 'instagram', icon: '📸', label: 'Instagram', limit: 2200, tip: 'Privilégiez les visuels et les hashtags' },
     { id: 'linkedin',  icon: '💼', label: 'LinkedIn',  limit: 3000, tip: 'Ton professionnel, insights métier' },
-    { id: 'facebook',  icon: '👥', label: 'Facebook',  limit: 63206, tip: 'Plus conversationnel, appel à l'action' },
+    { id: 'facebook',  icon: '👥', label: 'Facebook',  limit: 63206, tip: 'Plus conversationnel, appel à l\'action' },
   ]
   const current = reseaux.find(r => r.id === reseau)!
 
