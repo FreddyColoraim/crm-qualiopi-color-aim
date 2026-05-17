@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 interface Formateur {
   id: string; prenom: string; nom: string; email: string; telephone?: string
   specialite?: string; bio?: string; experience_ans?: number; cv_url?: string
+  photo_url?: string
   statut: 'actif' | 'inactif'
   formations?: { id: string; titre: string; reference: string }[]
 }
