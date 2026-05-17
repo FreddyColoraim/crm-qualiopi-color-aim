@@ -2,6 +2,10 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { BookOpen, Clock, Users, Euro, MapPin, ChevronRight } from 'lucide-react'
 
+'use client'
+import { useState } from 'react'
+import { NouvelleFormationModal } from '@/components/NouvelleFormationModal'
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface Formation {
   id: string
@@ -168,6 +172,8 @@ export default async function FormationsPage() {
 
   const totalSessions = (sessions ?? []).length
   const placesDispos = (sessions ?? []).reduce((acc, s) => acc + s.places_restantes, 0)
+
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
