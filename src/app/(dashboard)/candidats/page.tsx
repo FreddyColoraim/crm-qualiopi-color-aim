@@ -123,7 +123,11 @@ export default function CandidatsPage() {
           </p>
         </div>
 
-        {/* Bouton Nouveau candidat */}
+        {/* Boutons actions */}
+          <div className="flex gap-2">
+            <a href="/candidats/import" className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+              📊 Import CSV
+            </a>
         <Link
           href="/candidats/nouveau"
           className="flex items-center gap-1.5 text-sm font-medium bg-[#A0195B] text-white px-4 py-2.5 rounded-xl hover:bg-[#8A1548] transition-colors"
