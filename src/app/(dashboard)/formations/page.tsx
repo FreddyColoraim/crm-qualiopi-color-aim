@@ -1,10 +1,9 @@
-import { createClient } from '@/lib/supabase/server'
-import Link from 'next/link'
-import { BookOpen, Clock, Users, Euro, MapPin, ChevronRight } from 'lucide-react'
-
 'use client'
 import { useState } from 'react'
 import { NouvelleFormationModal } from '@/components/NouvelleFormationModal'
+import { createClient } from '@/lib/supabase/server'
+import Link from 'next/link'
+import { BookOpen, Clock, Users, Euro, MapPin, ChevronRight } from 'lucide-react'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface Formation {
