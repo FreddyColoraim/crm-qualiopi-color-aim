@@ -312,7 +312,7 @@ export async function POST(request: NextRequest) {
       prix_ttc:         formatMontant(prixTTC),
     }
 
-    const pdfDoc = pdf(React.createElement(DevisPDF as any, { d }))
+    const pdfDoc = pdf(React.createElement(DevisPDF, { d }) as any)
 const pdfBuffer = Buffer.from(await pdfDoc.toBuffer() as unknown as ArrayBuffer)
 
     const fileName = `devis/${formation_id}/${reference}.pdf`
