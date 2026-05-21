@@ -318,7 +318,8 @@ export async function POST(request: NextRequest) {
       prix_ttc:           formatMontant(prixTTC),
     }
 
-    const pdfBuffer = await pdf(React.createElement(ConventionPDF as any, { d })).toBuffer() as Buffer
+    const pdfDoc = pdf(React.createElement(ConventionPDF as any, { d }))
+const pdfBuffer = Buffer.from(await pdfDoc.toBuffer() as unknown as ArrayBuffer)
 
     const fileName = `conventions/${inscription_id}/${reference}.pdf`
     const { error: storageError } = await supabase.storage
