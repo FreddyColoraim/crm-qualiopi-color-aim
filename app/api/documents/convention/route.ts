@@ -319,7 +319,6 @@ export async function POST(request: NextRequest) {
     }
 
     const pdfBuffer = await pdf(React.createElement(ConventionPDF as any, { d })).toBuffer() as Buffer
-    const pdfBuffer = Buffer.from(pdfStream)
 
     const fileName = `conventions/${inscription_id}/${reference}.pdf`
     const { error: storageError } = await supabase.storage
