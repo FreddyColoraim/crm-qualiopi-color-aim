@@ -249,10 +249,6 @@ export async function POST(request: NextRequest) {
     const { inscription_id, send_email, email_destinataire } = schema.parse(body)
 
     const supabase = await createClient()
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-if (authError || !user) {
-  return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
-}
 
     const { data: inscription, error: dbError } = await supabase
       .from('inscriptions')
@@ -322,7 +318,8 @@ if (authError || !user) {
       prix_ttc:           formatMontant(prixTTC),
     }
 
-    const pdfBuffer = await pdf(React.createElement(ConventionPDF, { d })).toBuffer()
+    const pdfBuffer = await pdf(React.createElement(ConventionPDF as any, { d })).toBuffer() as Buffer
+    const pdfBuffer = Buffer.from(pdfStream)
 
     const fileName = `conventions/${inscription_id}/${reference}.pdf`
     const { error: storageError } = await supabase.storage
@@ -349,7 +346,7 @@ if (authError || !user) {
 
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Données invalides', details: error.errors }, { status: 400 })
+      return NextResponse.json({ error: 'Données invalides' }, { status: 400 })
     }
     console.error('Convention generation error:', error)
     return NextResponse.json({ error: 'Erreur génération document' }, { status: 500 })
@@ -360,17 +357,17 @@ async function sendConventionEmail(
   to: string, prenom: string, formationTitre: string,
   pdfBuffer: Buffer, reference: string
 ) {
-  const { Resend } = await import('resend')
-  const resend = new Resend(process.env.RESEND_API_KEY)
-  
-  await resend.emails.send({
-    from: `${process.env.OF_NOM} <${process.env.OF_EMAIL ?? 'onboarding@resend.dev'}>`,
-    to,
-    subject: `Convention de formation — ${formationTitre} (${reference})`,
-    html: `<p>Bonjour ${prenom},</p><p>Veuillez trouver en pièce jointe votre convention pour <strong>${formationTitre}</strong>.</p><p>Cordialement,<br>${process.env.OF_NOM}</p>`,
-   attachments: [{
-  filename: `Convention-${reference}.pdf`,
-  content: pdfBuffer.toString('base64'),
-}],
+  const sgApiKey = process.env.SENDGRID_API_KEY
+  if (!sgApiKey) return
+  await fetch('https://api.sendgrid.com/v3/mail/send', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${sgApiKey}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      to: [{ email: to }],
+      from: { email: process.env.OF_EMAIL ?? 'noreply@of.fr', name: process.env.OF_NOM },
+      subject: `Convention de formation — ${formationTitre} (${reference})`,
+      content: [{ type: 'text/html', value: `<p>Bonjour ${prenom},</p><p>Veuillez trouver en pièce jointe votre convention pour <strong>${formationTitre}</strong>.</p><p>Cordialement,<br>${process.env.OF_NOM}</p>` }],
+      attachments: [{ filename: `Convention-${reference}.pdf`, content: pdfBuffer.toString('base64'), type: 'application/pdf', disposition: 'attachment' }],
+    }),
   })
 }
