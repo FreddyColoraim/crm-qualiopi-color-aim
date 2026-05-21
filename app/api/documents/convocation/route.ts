@@ -191,10 +191,10 @@ export async function POST(request: NextRequest) {
 
     const supabase = await createClient()
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
-    }
+   const { data: { user }, error: authError } = await supabase.auth.getUser()
+if (authError || !user) {
+  return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
+}
 
     const { data: inscription, error: dbError } = await supabase
       .from('inscriptions')
