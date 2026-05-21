@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM Qualiopi — Color Aim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark: #202020;
+      --text: #333333;
+      --muted: #6b6b6b;
+      --bg: #f7f5f0;
+      --white: #ffffff;
+      --cyan: #00a7b5;
+      --cyan-dark: #007f8a;
+      --magenta: #d63d7c;
+      --yellow: #f3c548;
+      --border: #e7e2d8;
+      --shadow: 0 22px 60px rgba(32,32,32,.10);
+      --r: 28px;
+      --rsm: 18px;
+      --max: 1100px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      padding: 0 32px;
+    }
+    .nav-inner {
+      max-width: var(--max); margin: auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 900; font-size: 15px; letter-spacing: .02em; text-transform: uppercase; color: var(--dark);
+    }
+    .brand-mark {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: conic-gradient(from 90deg, var(--cyan), var(--yellow), var(--magenta), var(--cyan));
+      box-shadow: 0 0 0 4px rgba(255,255,255,.9), 0 0 0 5px var(--border);
+    }
+    .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--muted); }
+    .nav-links a:hover { color: var(--dark); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; border-radius: 999px;
+      font-family: inherit; font-size: 14px; font-weight: 700;
+      border: none; cursor: pointer; transition: .2s ease;
+    }
+    .btn-cyan { background: var(--cyan); color: white; box-shadow: 0 8px 24px rgba(0,167,181,.25); }
+    .btn-cyan:hover { background: var(--cyan-dark); transform: translateY(-1px); }
+    .btn-ghost { background: white; color: var(--dark); box-shadow: inset 0 0 0 1.5px var(--border); }
+    .btn-ghost:hover { background: var(--bg); }
+
+    /* ── HERO ── */
+    .hero {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden; position: relative;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -100px; top: -100px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, var(--yellow), transparent 65%);
+      opacity: .4;
+    }
+    .hero::after {
+      content: ''; position: absolute; left: -80px; bottom: -120px;
+      width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, var(--magenta), transparent 65%);
+      opacity: .2;
+    }
+    .hero-inner {
+      max-width: var(--max); margin: auto;
+      padding: 72px 32px 80px;
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--cyan-dark); font-weight: 900; text-transform: uppercase;
+      letter-spacing: .08em; font-size: 12px; margin-bottom: 18px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--magenta); display: inline-block; }
+    h1 {
+      font-size: clamp(36px, 5.5vw, 64px);
+      line-height: 1.04; letter-spacing: -.05em;
+      color: var(--dark); margin: 0 0 20px; font-weight: 900;
+    }
+    h1 em { font-style: italic; color: var(--cyan-dark); }
+    .lead { font-size: 18px; color: #4a4a4a; margin: 0 0 28px; line-height: 1.65; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+    .proofs { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .proof {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--rsm); padding: 14px 12px; text-align: center;
+    }
+    .proof-num { font-size: 26px; font-weight: 900; color: var(--dark); line-height: 1; margin-bottom: 4px; }
+    .proof-num span { color: var(--cyan); }
+    .proof-label { font-size: 11px; color: var(--muted); line-height: 1.3; }
+
+    /* Hero card */
+    .hero-card {
+      background: white; border-radius: var(--r);
+      box-shadow: var(--shadow); padding: 28px; border: 1px solid var(--border);
+    }
+    .card-head { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 14px; }
+    .doc-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--rsm); padding: 11px 14px; margin-bottom: 8px;
+      font-size: 13px; font-weight: 500; color: var(--dark);
+      transition: all .2s;
+    }
+    .doc-item:last-child { margin-bottom: 0; }
+    .doc-item:hover { border-color: var(--cyan); background: rgba(0,167,181,.04); }
+    .doc-icon { font-size: 15px; flex-shrink: 0; }
+    .doc-name { flex: 1; }
+    .badge {
+      font-size: 10px; font-weight: 700; padding: 3px 9px;
+      border-radius: 999px; letter-spacing: .04em; white-space: nowrap;
+    }
+    .badge-cyan { background: rgba(0,167,181,.12); color: var(--cyan-dark); }
+    .badge-pink { background: rgba(214,61,124,.12); color: var(--magenta); }
+    .badge-yellow { background: rgba(243,197,72,.2); color: #a07a00; }
+    .card-footer {
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; }
+
+    /* ── TICKER ── */
+    .ticker { background: var(--cyan); padding: 12px 0; overflow: hidden; white-space: nowrap; }
+    .ticker-inner { display: inline-flex; animation: ticker 26s linear infinite; }
+    .ticker-item {
+      font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: white; padding: 0 28px;
+      display: inline-flex; align-items: center; gap: 14px;
+    }
+    .ticker-item::after { content: '✦'; opacity: .5; font-size: 8px; }
+
+    /* ── SECTION ── */
+    .section { padding: 80px 32px; }
+    .section-inner { max-width: var(--max); margin: auto; }
+    .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--cyan-dark); margin-bottom: 12px; }
+    h2 { font-size: clamp(28px, 3.5vw, 44px); line-height: 1.08; letter-spacing: -.04em; color: var(--dark); margin: 0 0 14px; font-weight: 900; }
+    .section-sub { font-size: 17px; color: var(--muted); margin: 0 0 40px; }
+
+    /* ── FEATURES ── */
+    .features-bg { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .feat-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 32px 28px; transition: all .2s;
+    }
+    .feat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(32,32,32,.08); border-color: var(--cyan); }
+    .feat-icon {
+      width: 44px; height: 44px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 18px;
+    }
+    .ic { background: rgba(0,167,181,.12); }
+    .im { background: rgba(214,61,124,.12); }
+    .iy { background: rgba(243,197,72,.2); }
+    .feat-card h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin: 0 0 8px; }
+    .feat-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── WORKFLOW ── */
+    .workflow-bg { background: var(--dark); }
+    .workflow-grid { max-width: var(--max); margin: auto; padding: 80px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    h2.light { color: white; }
+    h2.light em { font-style: italic; color: var(--cyan); }
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: flex; gap: 20px; padding: 22px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06); transition: .2s;
+    }
+    .step:first-child { padding-top: 0; }
+    .step:last-child { border-bottom: none; }
+    .step:hover .step-n { border-color: var(--cyan); color: var(--cyan); }
+    .step-n {
+      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+      border: 1.5px solid rgba(255,255,255,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: rgba(255,255,255,.35);
+      margin-top: 2px; transition: .2s;
+    }
+    .step h4 { font-size: 14px; font-weight: 700; color: white; margin: 0 0 5px; }
+    .step p { font-size: 13px; color: rgba(255,255,255,.42); line-height: 1.6; }
+    .wdoc-list h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.3); margin-bottom: 14px; }
+    .wdoc {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--rsm); padding: 12px 16px; margin-bottom: 8px;
+      transition: .2s;
+    }
+    .wdoc:last-child { margin-bottom: 0; }
+    .wdoc:hover { border-color: rgba(0,167,181,.4); background: rgba(0,167,181,.07); }
+    .wdoc-icon { font-size: 14px; }
+    .wdoc-label { font-size: 13px; color: rgba(255,255,255,.7); flex: 1; }
+    .wbadge {
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+    }
+    .wb-c { background: rgba(0,167,181,.2); color: var(--cyan); }
+    .wb-m { background: rgba(214,61,124,.2); color: #f47bb0; }
+    .wb-y { background: rgba(243,197,72,.2); color: #d4a820; }
+
+    /* ── PRICING ── */
+    .pricing-bg { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .plan {
+      border: 1.5px solid var(--border); border-radius: var(--r); padding: 28px 22px;
+      background: var(--bg); position: relative; transition: .2s;
+    }
+    .plan:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .plan.pop { background: var(--dark); border-color: var(--cyan); color: white; }
+    .plan-tag {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--magenta); color: white;
+      font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 999px; white-space: nowrap;
+    }
+    .plan-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 14px; }
+    .pop .plan-name { color: rgba(255,255,255,.35); }
+    .plan-price { font-size: 38px; font-weight: 900; letter-spacing: -.04em; color: var(--dark); line-height: 1; margin-bottom: 4px; }
+    .pop .plan-price { color: white; }
+    .plan-price sub { font-size: 14px; font-weight: 400; color: var(--muted); vertical-align: middle; letter-spacing: 0; }
+    .pop .plan-price sub { color: rgba(255,255,255,.35); }
+    .plan-desc { font-size: 12px; color: var(--muted); margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+    .pop .plan-desc { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.08); }
+    .plan-feats { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 22px; }
+    .plan-feats li { font-size: 13px; display: flex; gap: 8px; align-items: flex-start; }
+    .plan-feats li::before { content: '✓'; color: var(--cyan); font-weight: 900; flex-shrink: 0; }
+    .pop .plan-feats li { color: rgba(255,255,255,.78); }
+    .plan-btn {
+      display: block; text-align: center; padding: 11px 16px; border-radius: 999px;
+      font-size: 13px; font-weight: 700; transition: .2s;
+      border: 1.5px solid var(--border); color: var(--dark);
+    }
+    .plan-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .pop .plan-btn { background: var(--cyan); color: white; border-color: var(--cyan); }
+    .pop .plan-btn:hover { background: var(--cyan-dark); }
+    .plan-note { font-size: 11px; color: var(--muted); margin-top: 10px; text-align: center; }
+    .pop .plan-note { color: rgba(255,255,255,.25); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--magenta) 0%, #b52070 100%);
+      text-align: center; padding: 88px 32px; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; right: -80px; top: -80px;
+      width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.07);
+    }
+    .cta-section::after {
+      content: ''; position: absolute; left: -60px; bottom: -60px;
+      width: 260px; height: 260px; border-radius: 50%; background: rgba(255,255,255,.05);
+    }
+    .cta-section h2 { color: white; margin-bottom: 12px; position: relative; }
+    .cta-section p { color: rgba(255,255,255,.75); font-size: 17px; margin-bottom: 32px; position: relative; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: white; color: var(--magenta);
+      font-size: 15px; font-weight: 800; padding: 14px 36px; border-radius: 999px;
+      position: relative; transition: .2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.15); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.45);
+      padding: 36px 32px; font-size: 13px;
+    }
+    .footer-inner { max-width: var(--max); margin: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-brand { font-weight: 900; font-size: 14px; color: white; text-transform: uppercase; letter-spacing: .04em; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; }
+    .d3 { transition-delay: .24s; } .d4 { transition-delay: .32s; }
+    .d5 { transition-delay: .40s; } .d6 { transition-delay: .48s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      ColorAim CRM
+    </div>
+    <div class="nav-links">
+      <a href="#features">Fonctionnalités</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#tarifs">Tarifs</a>
+    </div>
+    <a href="/login" class="btn btn-cyan">Accéder →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Certifié Qualiopi</div>
+      <h1>L'OS administratif des<br><em>organismes de<br>formation</em></h1>
+      <p class="lead">Automatisez vos dossiers apprenants, de la prospection à l'émargement. Conçu pour répondre aux exigences Qualiopi, sans paperasse.</p>
+      <div class="hero-cta">
+        <a href="/login" class="btn btn-cyan">Accéder à mon espace</a>
+        <a href="#workflow" class="btn btn-ghost">Voir le workflow ↓</a>
+      </div>
+      <div class="proofs">
+        <div class="proof">
+          <div class="proof-num">10<span>+</span></div>
+          <div class="proof-label">Documents auto-générés</div>
+        </div>
+        <div class="proof">
+          <div class="proof-num">100<span>%</span></div>
+          <div class="proof-label">Traçabilité Qualiopi</div>
+        </div>
+        <div class="proof">
+          <div class="proof-num">0</div>
+          <div class="proof-label">Ressaisie manuelle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card reveal">
+      <div class="card-head">DocumentHub · Thomas Renard</div>
+      <div class="doc-item"><div class="doc-icon">📋</div><div class="doc-name">Convention de formation</div><div class="badge badge-cyan">Généré</div></div>
+      <div class="doc-item"><div class="doc-icon">✉️</div><div class="doc-name">Convocation stagiaire</div><div class="badge badge-cyan">Envoyé</div></div>
+      <div class="doc-item"><div class="doc-icon">💼</div><div class="doc-name">Devis de formation</div><div class="badge badge-cyan">Généré</div></div>
+      <div class="doc-item"><div class="doc-icon">🏦</div><div class="doc-name">Dossier financement OPCO</div><div class="badge badge-yellow">Prêt</div></div>
+      <div class="doc-item"><div class="doc-icon">📝</div><div class="doc-name">Feuille d'émargement</div><div class="badge badge-cyan">Archivé</div></div>
+      <div class="doc-item"><div class="doc-icon">🎓</div><div class="doc-name">Attestation de fin</div><div class="badge badge-pink">En attente</div></div>
+      <div class="card-footer">
+        <span class="status-dot"></span>
+        Gestion des couleurs RVB · Session 9 juin 2026
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Convention de formation</span>
+    <span class="ticker-item">Convocation stagiaire</span>
+    <span class="ticker-item">Devis OPCO</span>
+    <span class="ticker-item">Émargement</span>
+    <span class="ticker-item">Attestation de fin</span>
+    <span class="ticker-item">Questionnaire satisfaction</span>
+    <span class="ticker-item">Bilan pédagogique</span>
+    <span class="ticker-item">Dossier financement</span>
+    <span class="ticker-item">Convention de formation</span>
+    <span class="ticker-item">Convocation stagiaire</span>
+    <span class="ticker-item">Devis OPCO</span>
+    <span class="ticker-item">Émargement</span>
+    <span class="ticker-item">Attestation de fin</span>
+    <span class="ticker-item">Questionnaire satisfaction</span>
+    <span class="ticker-item">Bilan pédagogique</span>
+    <span class="ticker-item">Dossier financement</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features-bg" id="features">
+  <div class="section">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-label">Fonctionnalités</div>
+        <h2>Tout ce qu'un OF certifié Qualiopi doit gérer</h2>
+        <p class="section-sub">Centralisé, automatisé, traçable.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card reveal d1">
+          <div class="feat-icon ic">📋</div>
+          <h3>Dossiers apprenants</h3>
+          <p>Fiche candidat complète, historique des formations, financement OPCO individualisé par stagiaire.</p>
+        </div>
+        <div class="feat-card reveal d2">
+          <div class="feat-icon im">📄</div>
+          <h3>Documents PDF auto</h3>
+          <p>Convention, convocation, devis, attestation — générés en un clic depuis la fiche, envoyés par email.</p>
+        </div>
+        <div class="feat-card reveal d3">
+          <div class="feat-icon iy">📊</div>
+          <h3>Dashboard Qualiopi</h3>
+          <p>7 indicateurs en temps réel, actions correctives, sessions actives, taux de satisfaction NPS.</p>
+        </div>
+        <div class="feat-card reveal d4">
+          <div class="feat-icon ic">💰</div>
+          <h3>Financement OPCO</h3>
+          <p>Dispositif par stagiaire, export dossier OPCO, suivi des prises en charge et des financeurs.</p>
+        </div>
+        <div class="feat-card reveal d5">
+          <div class="feat-icon im">✉️</div>
+          <h3>Email intégré</h3>
+          <p>Chaque document envoyé directement au stagiaire ou à l'entreprise via Resend ou Brevo.</p>
+        </div>
+        <div class="feat-card reveal d6">
+          <div class="feat-icon iy">👥</div>
+          <h3>Recrutement</h3>
+          <p>Prospects, import CSV, campagnes email, réseaux sociaux, questionnaire satisfaction intégré.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKFLOW -->
+<div class="workflow-bg" id="workflow">
+  <div class="workflow-grid">
+    <div>
+      <div class="section-label reveal" style="color:rgba(255,255,255,.35)">Workflow complet</div>
+      <h2 class="light reveal">Du prospect<br>au bilan de<br><em>formation</em></h2>
+      <p class="reveal" style="color:rgba(255,255,255,.4);font-size:15px;margin-bottom:32px;margin-top:-8px;">5 étapes couvertes nativement, sans outil externe.</p>
+      <div class="steps">
+        <div class="step reveal"><div class="step-n">01</div><div><h4>Prospect → Candidat</h4><p>Import CSV, saisie manuelle. Fiche complète avec entreprise, poste, financement OPCO.</p></div></div>
+        <div class="step reveal d1"><div class="step-n">02</div><div><h4>Devis & convention</h4><p>Génération automatique depuis la formation. Envoi direct pour signature.</p></div></div>
+        <div class="step reveal d2"><div class="step-n">03</div><div><h4>Session & convocation</h4><p>Planification, convocation individuelle, logistique envoyée automatiquement.</p></div></div>
+        <div class="step reveal d3"><div class="step-n">04</div><div><h4>Formation & traçabilité</h4><p>Émargement, exercices, évaluations. Tout archivé pour l'audit Qualiopi.</p></div></div>
+        <div class="step reveal d4"><div class="step-n">05</div><div><h4>Bilan & satisfaction</h4><p>Attestation, questionnaire NPS, bilan pédagogique généré automatiquement.</p></div></div>
+      </div>
+    </div>
+    <div class="wdoc-list reveal">
+      <h3>DocumentHub</h3>
+      <div class="wdoc"><div class="wdoc-icon">📋</div><div class="wdoc-label">Convention de formation</div><div class="wbadge wb-c">Généré</div></div>
+      <div class="wdoc"><div class="wdoc-icon">✉️</div><div class="wdoc-label">Convocation stagiaire</div><div class="wbadge wb-c">Envoyé</div></div>
+      <div class="wdoc"><div class="wdoc-icon">💼</div><div class="wdoc-label">Devis de formation</div><div class="wbadge wb-c">Généré</div></div>
+      <div class="wdoc"><div class="wdoc-icon">🏦</div><div class="wdoc-label">Dossier financement OPCO</div><div class="wbadge wb-y">Prêt</div></div>
+      <div class="wdoc"><div class="wdoc-icon">📝</div><div class="wdoc-label">Feuille d'émargement</div><div class="wbadge wb-c">Archivé</div></div>
+      <div class="wdoc"><div class="wdoc-icon">🎓</div><div class="wdoc-label">Attestation de fin</div><div class="wbadge wb-m">En attente</div></div>
+      <div class="wdoc"><div class="wdoc-icon">⭐</div><div class="wdoc-label">Questionnaire satisfaction</div><div class="wbadge wb-c">Complété</div></div>
+      <div class="wdoc"><div class="wdoc-icon">📊</div><div class="wdoc-label">Bilan pédagogique</div><div class="wbadge wb-c">Généré</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing-bg" id="tarifs">
+  <div class="section">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-label">Tarifs</div>
+        <h2>Facturation au volume de dossiers actifs</h2>
+        <p class="section-sub">Utilisateurs illimités. Pas de blocage brutal. Tolérance de dépassement.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="plan reveal d1">
+          <div class="plan-name">Solo</div>
+          <div class="plan-price">49 €<sub>/mois</sub></div>
+          <div class="plan-desc">jusqu'à 10 dossiers/an · 1 formateur</div>
+          <ul class="plan-feats">
+            <li>Workflow complet</li>
+            <li>Documents PDF</li>
+            <li>Émargement</li>
+            <li>Support email</li>
+          </ul>
+          <a href="/login" class="plan-btn">Commencer</a>
+          <div class="plan-note">Dépassement 7 €/dossier</div>
+        </div>
+        <div class="plan reveal d2">
+          <div class="plan-name">Starter</div>
+          <div class="plan-price">149 €<sub>/mois</sub></div>
+          <div class="plan-desc">jusqu'à 50 dossiers/an</div>
+          <ul class="plan-feats">
+            <li>Utilisateurs illimités</li>
+            <li>Import CSV candidats</li>
+            <li>EmailPanel intégré</li>
+            <li>Support email</li>
+          </ul>
+          <a href="/login" class="plan-btn">Commencer</a>
+          <div class="plan-note">Dépassement 6 €/dossier</div>
+        </div>
+        <div class="plan pop reveal d3">
+          <div class="plan-tag">Populaire</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-price">299 €<sub>/mois</sub></div>
+          <div class="plan-desc">jusqu'à 200 dossiers/an</div>
+          <ul class="plan-feats">
+            <li>Dashboard Qualiopi</li>
+            <li>Campagnes Brevo</li>
+            <li>OCR pièces OPCO</li>
+            <li>Support prioritaire</li>
+          </ul>
+          <a href="/login" class="plan-btn">Commencer</a>
+          <div class="plan-note">Dépassement 4 €/dossier</div>
+        </div>
+        <div class="plan reveal d4">
+          <div class="plan-name">Scale</div>
+          <div class="plan-price" style="font-size:22px;letter-spacing:-.02em;line-height:1.2;">Sur<br>devis</div>
+          <div class="plan-desc">500+ dossiers/an · grands OF</div>
+          <ul class="plan-feats">
+            <li>Marque blanche</li>
+            <li>Signature électronique</li>
+            <li>API complète</li>
+            <li>CSM dédié</li>
+          </ul>
+          <a href="mailto:contact@coloraim.fr" class="plan-btn">Nous contacter</a>
+          <div class="plan-note">Contrat annuel · SLA inclus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Prêt à structurer votre OF ?</h2>
+  <p>Accédez à votre espace dès maintenant.</p>
+  <a href="/login" class="btn-white">Accéder à l'espace →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">ColorAim CRM</div>
+    <div class="footer-links">
+      <a href="https://coloraim.fr">coloraim.fr</a>
+      <a href="mailto:contact@coloraim.fr">Contact</a>
+    </div>
+    <div>© 2026 Color Aim — Certifié Qualiopi</div>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on') })
+}, { threshold: 0.1 })
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
+</script>
+</body>
+</html>
