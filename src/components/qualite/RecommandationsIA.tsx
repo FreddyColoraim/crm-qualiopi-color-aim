@@ -1,8 +1,39 @@
 'use client'
 import { useState } from 'react'
 
-export function RecommandationsIA({ indicateurs, actions_en_cours }: { indicateurs: any[], actions_en_cours?: any[] }) {
-  const [analyse, setAnalyse] = useState<any>(null)
+interface Indicateur {
+  numero_critere: string
+  libelle: string
+  score: number
+  detail: string
+}
+
+interface Action {
+  numero_critere: string
+  description: string
+  statut: string
+  date_limite: string
+}
+
+interface Recommandation {
+  critere: string
+  priorite: 'haute' | 'moyenne' | 'basse'
+  action: string
+  delai_suggere: string
+  impact: string
+}
+
+interface Analyse {
+  niveau: string
+  score_global: number
+  synthese: string
+  alerte_audit?: string
+  points_forts?: string[]
+  recommandations?: Recommandation[]
+}
+
+export function RecommandationsIA({ indicateurs, actions_en_cours }: { indicateurs: Indicateur[], actions_en_cours?: Action[] }) {
+  const [analyse, setAnalyse] = useState<Analyse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -15,13 +46,13 @@ export function RecommandationsIA({ indicateurs, actions_en_cours }: { indicateu
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          indicateurs: indicateurs.map((i: any) => ({
+          indicateurs: indicateurs.map(i => ({
             numero_critere: i.numero_critere,
             libelle: i.libelle,
             score: i.score,
             detail: i.detail,
           })),
-          actions_en_cours: (actions_en_cours ?? []).map((a: any) => ({
+          actions_en_cours: (actions_en_cours ?? []).map(a => ({
             numero_critere: a.numero_critere,
             description: a.description,
             statut: a.statut,
@@ -38,10 +69,10 @@ export function RecommandationsIA({ indicateurs, actions_en_cours }: { indicateu
         if (done) break
         buffer += decoder.decode(value, { stream: true })
       }
-      const data = JSON.parse(buffer)
+      const data = JSON.parse(buffer) as Analyse
       setAnalyse(data)
-    } catch (e: any) {
-      setError("Erreur : " + e.message)
+    } catch (e) {
+      setError('Erreur : ' + (e instanceof Error ? e.message : 'inconnue'))
     } finally {
       setLoading(false)
     }
@@ -51,7 +82,7 @@ export function RecommandationsIA({ indicateurs, actions_en_cours }: { indicateu
     <div>
       <div className="flex items-center justify-between px-6 py-4 bg-violet-50">
         <div>
-          <div className="text-sm font-medium text-violet-900">✨ Axes d'amélioration continue</div>
+          <div className="text-sm font-medium text-violet-900">✨ Axes d&apos;amélioration continue</div>
           <div className="text-xs text-violet-500">Analyse Claude · recommandations personnalisées</div>
         </div>
         <button
@@ -65,7 +96,7 @@ export function RecommandationsIA({ indicateurs, actions_en_cours }: { indicateu
       <div className="px-6 py-5">
         {!analyse && !loading && !error && (
           <p className="text-center text-gray-400 text-sm py-4">
-            Cliquez sur "Analyser avec Claude" pour obtenir des recommandations avant l'audit du 15/11/2026.
+            Cliquez sur &quot;Analyser avec Claude&quot; pour obtenir des recommandations avant l&apos;audit.
           </p>
         )}
         {error && <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-sm">⚠️ {error}</div>}
@@ -81,20 +112,20 @@ export function RecommandationsIA({ indicateurs, actions_en_cours }: { indicateu
               </div>
               <p className="text-sm text-gray-700">{analyse.synthese}</p>
             </div>
-            {analyse.points_forts?.length > 0 && (
+            {analyse.points_forts && analyse.points_forts.length > 0 && (
               <div>
                 <div className="text-xs font-semibold text-gray-500 uppercase mb-2">✅ Points forts</div>
-                {analyse.points_forts.map((p: string, i: number) => (
+                {analyse.points_forts.map((p, i) => (
                   <div key={i} className="flex gap-2 text-sm text-gray-700 mb-1">
                     <span className="text-green-500">✓</span> {p}
                   </div>
                 ))}
               </div>
             )}
-            {analyse.recommandations?.length > 0 && (
+            {analyse.recommandations && analyse.recommandations.length > 0 && (
               <div>
                 <div className="text-xs font-semibold text-gray-500 uppercase mb-2">Actions recommandées</div>
-                {analyse.recommandations.map((r: any, i: number) => (
+                {analyse.recommandations.map((r, i) => (
                   <div key={i} className={`border rounded-xl p-4 mb-2 ${r.priorite === 'haute' ? 'bg-red-50 border-red-200' : r.priorite === 'moyenne' ? 'bg-amber-50 border-amber-200' : 'bg-green-50 border-green-200'}`}>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-bold text-gray-400">C{r.critere}</span>
