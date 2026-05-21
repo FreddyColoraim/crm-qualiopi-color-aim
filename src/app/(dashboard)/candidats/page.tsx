@@ -38,7 +38,7 @@ function FinanceurBadge({ financeur }: { financeur: string | null }) {
 }
 
 // ─── Carte candidat ──────────────────────────────────────────────────────────
-function CarteCandidат({ c }: { c: Candidat }) {
+function CarteCandidat({ c }: { c: Candidat }) {
   const initiales = `${c.prenom[0]}${c.nom[0]}`.toUpperCase()
   return (
     <Link
@@ -135,6 +135,7 @@ export default function CandidatsPage() {
           <UserPlus className="w-4 h-4" />
           Nouveau candidat
         </Link>
+          </div>
       </div>
 
       {/* Barre de recherche */}
@@ -188,7 +189,7 @@ export default function CandidatsPage() {
       ) : (
         <div className="space-y-2">
           {filtres.map(c => (
-            <CarteCandidат key={c.id} c={c} />
+            <CarteCandidat key={c.id} c={c} />
           ))}
         </div>
       )}

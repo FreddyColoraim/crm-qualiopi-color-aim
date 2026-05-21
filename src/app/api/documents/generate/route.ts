@@ -146,7 +146,7 @@ function buildDocHtml(type: DocType, data: Record<string, string>): string {
             <li>Fichiers de travail personnels (optionnel)</li>
             <li>Bloc-notes et stylo</li>
           </ul>`) +
-        section('Contact en cas d'urgence', field('Référent formation', formateur) + field('Téléphone', organismeTel) + field('Email', organismeEmail))
+        section("Contact en cas d'urgence", field('Référent formation', formateur) + field('Téléphone', organismeTel) + field('Email', organismeEmail))
       )
 
     case 'exercices':
