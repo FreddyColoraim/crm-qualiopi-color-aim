@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      color: #1a1a1a;
+      line-height: 1.5;
+      padding: 40px 50px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #1a1a1a;
+    }
+    .header-left h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 2px;
+    }
+    .header-left p {
+      font-size: 10px;
+      color: #666;
+    }
+    .header-right {
+      text-align: right;
+      font-size: 10px;
+      color: #666;
+    }
+    .header-right strong {
+      display: block;
+      font-size: 12px;
+      color: #1a1a1a;
+      margin-bottom: 2px;
+    }
+
+    /* ── BADGE QUALIOPI ── */
+    .qualiopi-badge {
+      display: inline-block;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 24px;
+    }
+
+    /* ── TITRE DOCUMENT ── */
+    .doc-title {
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+    .doc-subtitle {
+      font-size: 10px;
+      text-align: center;
+      color: #666;
+      margin-bottom: 28px;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom: 22px;
+    }
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #666;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      border-bottom: 0.5px solid #ddd;
+    }
+
+    /* ── GRILLE DE DONNÉES ── */
+    .data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+    }
+    .data-grid.full {
+      grid-template-columns: 1fr;
+    }
+    .data-item label {
+      display: block;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+      margin-bottom: 2px;
+    }
+    .data-item p {
+      font-size: 11px;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    /* ── TABLEAU PROGRAMME ── */
+    .programme-box {
+      background: #f8f8f8;
+      border: 0.5px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 12px;
+      font-size: 11px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    /* ── TABLEAU FINANCIER ── */
+    table.financier {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    table.financier th {
+      background: #f0f0f0;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #666;
+      padding: 6px 10px;
+      text-align: left;
+      border: 0.5px solid #ddd;
+    }
+    table.financier td {
+      padding: 7px 10px;
+      border: 0.5px solid #ddd;
+      vertical-align: top;
+    }
+    table.financier tr.total td {
+      font-weight: 700;
+      background: #f8f8f8;
+    }
+
+    /* ── CONDITIONS ── */
+    .conditions {
+      font-size: 10px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .conditions p { margin-bottom: 6px; }
+    .conditions strong { color: #1a1a1a; }
+
+    /* ── SIGNATURES ── */
+    .signatures {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 0.5px solid #ddd;
+    }
+    .signature-block p.label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .signature-block p.name {
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .signature-block p.role {
+      font-size: 10px;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    .signature-line {
+      border-bottom: 1px solid #1a1a1a;
+      height: 1px;
+      margin-bottom: 4px;
+    }
+    .signature-block p.date-label {
+      font-size: 9px;
+      color: #888;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 32px;
+      padding-top: 12px;
+      border-top: 0.5px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: #aaa;
+    }
+
+    /* ── PAGE BREAK ── */
+    @media print {
+      .page-break { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER OF -->
+  <div class="header">
+    <div class="header-left">
+      <h1>{{of_nom}}</h1>
+      <p>{{of_adresse}}</p>
+      <p>SIRET : {{of_siret}} — N° Qualiopi : {{of_numero_qualiopi}}</p>
+    </div>
+    <div class="header-right">
+      <strong>Référence : {{convention_reference}}</strong>
+      <span>Émise le {{date_emission}}</span>
+    </div>
+  </div>
+
+  <span class="qualiopi-badge">Organisme certifié Qualiopi</span>
+
+  <!-- TITRE -->
+  <p class="doc-title">Convention de Formation Professionnelle</p>
+  <p class="doc-subtitle">Établie conformément aux articles L.6353-1 et suivants du Code du travail</p>
+
+  <!-- PARTIES -->
+  <div class="section">
+    <p class="section-title">Parties à la convention</p>
+    <div class="data-grid">
+      <div class="data-item">
+        <label>Organisme de formation (prestataire)</label>
+        <p>{{of_nom}}</p>
+        <p style="color:#666; font-size:10px;">{{of_adresse}}</p>
+        <p style="color:#666; font-size:10px;">SIRET : {{of_siret}}</p>
+      </div>
+      <div class="data-item">
+        <label>Entreprise cliente (commanditaire)</label>
+        <p>{{entreprise_nom}}</p>
+        <p style="color:#666; font-size:10px;">{{entreprise_adresse}}</p>
+        <p style="color:#666; font-size:10px;">SIRET : {{entreprise_siret}}</p>
+        <p style="color:#666; font-size:10px;">Représentée par : {{entreprise_contact}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBJET DE LA FORMATION -->
+  <div class="section">
+    <p class="section-title">Objet de la formation</p>
+    <div class="data-grid">
+      <div class="data-item">
+        <label>Intitulé</label>
+        <p>{{formation_titre}}</p>
+      </div>
+      <div class="data-item">
+        <label>Référence formation</label>
+        <p>{{formation_reference}}</p>
+      </div>
+      <div class="data-item">
+        <label>Catégorie d'action</label>
+        <p>Action de formation — Article L.6313-1</p>
+      </div>
+      <div class="data-item">
+        <label>Type de formation</label>
+        <p>{{formation_type}}</p>
+      </div>
+      <div class="data-item">
+        <label>Public visé</label>
+        <p>{{formation_public_cible}}</p>
+      </div>
+      <div class="data-item">
+        <label>Prérequis</label>
+        <p>{{formation_prerequis}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBJECTIFS PÉDAGOGIQUES -->
+  <div class="section">
+    <p class="section-title">Objectifs pédagogiques</p>
+    <div class="programme-box">{{formation_objectifs_pedagogiques}}</div>
+  </div>
+
+  <!-- MODALITÉS DE LA SESSION -->
+  <div class="section">
+    <p class="section-title">Modalités de la session</p>
+    <div class="data-grid">
+      <div class="data-item">
+        <label>Date de début</label>
+        <p>{{session_date_debut}}</p>
+      </div>
+      <div class="data-item">
+        <label>Date de fin</label>
+        <p>{{session_date_fin}}</p>
+      </div>
+      <div class="data-item">
+        <label>Durée totale</label>
+        <p>{{formation_duree}}</p>
+      </div>
+      <div class="data-item">
+        <label>Modalités pédagogiques</label>
+        <p>{{formation_modalites}}</p>
+      </div>
+      <div class="data-item">
+        <label>Lieu de formation</label>
+        <p>{{session_lieu}}</p>
+      </div>
+      <div class="data-item">
+        <label>Formateur référent</label>
+        <p>{{formateur_nom}}</p>
+      </div>
+      <div class="data-item">
+        <label>Effectif</label>
+        <p>{{session_places_max}} stagiaires maximum</p>
+      </div>
+      <div class="data-item">
+        <label>Accessibilité handicap</label>
+        <p>{{formation_accessibilite}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGIAIRES -->
+  <div class="section">
+    <p class="section-title">Stagiaire(s) concerné(s)</p>
+    <table class="financier">
+      <thead>
+        <tr>
+          <th>Nom Prénom</th>
+          <th>Poste</th>
+          <th>Email</th>
+          <th>Financement</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{stagiaires_rows}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CONDITIONS FINANCIÈRES -->
+  <div class="section">
+    <p class="section-title">Conditions financières</p>
+    <table class="financier">
+      <thead>
+        <tr>
+          <th>Désignation</th>
+          <th style="text-align:right;">Montant HT</th>
+          <th style="text-align:right;">TVA (20%)</th>
+          <th style="text-align:right;">Montant TTC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Formation : {{formation_titre}}<br><span style="font-size:10px;color:#666;">{{formation_duree}} — {{stagiaires_count}} stagiaire(s)</span></td>
+          <td style="text-align:right;">{{prix_ht}} €</td>
+          <td style="text-align:right;">{{prix_tva}} €</td>
+          <td style="text-align:right;">{{prix_ttc}} €</td>
+        </tr>
+        <tr class="total">
+          <td><strong>Total</strong></td>
+          <td style="text-align:right;"><strong>{{prix_ht}} €</strong></td>
+          <td style="text-align:right;"><strong>{{prix_tva}} €</strong></td>
+          <td style="text-align:right;"><strong>{{prix_ttc}} €</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:10px; color:#666; margin-top:8px;">
+      Exonération de TVA — Article 261-4-4° du CGI (organisme de formation) ou TVA applicable selon statut.
+    </p>
+  </div>
+
+  <!-- CONDITIONS GÉNÉRALES -->
+  <div class="section">
+    <p class="section-title">Conditions générales</p>
+    <div class="conditions">
+      <p><strong>Modalités de règlement :</strong> Paiement à réception de facture, par virement bancaire. En cas de prise en charge par un OPCO, le règlement sera effectué directement par l'organisme financeur.</p>
+      <p><strong>Annulation :</strong> Toute annulation doit être notifiée par écrit. En cas d'annulation moins de 7 jours ouvrés avant le début de la formation, 30% du montant total sera facturé. Toute formation commencée est due en totalité.</p>
+      <p><strong>Report :</strong> Un report sans frais est possible jusqu'à 15 jours avant le début de la session, sous réserve de disponibilité.</p>
+      <p><strong>Délai d'accès :</strong> L'inscription est possible jusqu'à {{formation_delai_acces}} jours ouvrés avant le début de la session.</p>
+      <p><strong>Méthodes d'évaluation :</strong> {{formation_moyens_evaluation}}</p>
+      <p><strong>Règlement intérieur :</strong> Un règlement intérieur est remis à chaque stagiaire avant le début de la formation. Le stagiaire s'engage à le respecter.</p>
+    </div>
+  </div>
+
+  <!-- SIGNATURES -->
+  <div class="signatures">
+    <div class="signature-block">
+      <p class="label">Pour l'organisme de formation</p>
+      <p class="name">{{of_nom}}</p>
+      <p class="role">Le responsable pédagogique</p>
+      <div class="signature-line"></div>
+      <p class="date-label">Signature et cachet — Date : _______________</p>
+    </div>
+    <div class="signature-block">
+      <p class="label">Pour l'entreprise cliente</p>
+      <p class="name">{{entreprise_nom}}</p>
+      <p class="role">{{entreprise_contact}} — Le représentant légal</p>
+      <div class="signature-line"></div>
+      <p class="date-label">Signature et cachet — Date : _______________</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>{{of_nom}} — SIRET {{of_siret}} — N° Qualiopi {{of_numero_qualiopi}}</span>
+    <span>Convention réf. {{convention_reference}} — Page 1/1</span>
+  </div>
+
+</body>
+</html>
