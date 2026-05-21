@@ -318,7 +318,7 @@ export async function POST(request: NextRequest) {
       prix_ttc:           formatMontant(prixTTC),
     }
 
-    const pdfDoc = pdf(React.createElement(ConventionPDF as any, { d }))
+    const pdfDoc = pdf(React.createElement(ConventionPDF, { d }) as any)
 const pdfBuffer = Buffer.from(await pdfDoc.toBuffer() as unknown as ArrayBuffer)
 
     const fileName = `conventions/${inscription_id}/${reference}.pdf`
